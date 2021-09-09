@@ -85,7 +85,8 @@ export default {
   setup(props) {
     const state = reactive({
       newReview: {
-        restaurantId: props.restaurant.id
+        restaurantId: props.restaurant.id,
+        published: false
       }
     })
     return {
