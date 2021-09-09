@@ -1,6 +1,6 @@
 import { logger } from '../utils/Logger'
-import { SocketHandler } from '../utils/SocketHandler'
 import Pop from '../utils/Notifier'
+import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
   constructor() {
@@ -15,4 +15,4 @@ class SocketService extends SocketHandler {
   }
 }
 
-export const socketService = new SocketService()
+// export const socketService = new SocketService()

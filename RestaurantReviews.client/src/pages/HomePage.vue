@@ -1,15 +1,43 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+  <div class="home flex-grow-1 container">
+    <div class="row">
+      <div class="col text-center">
+        <h2>Welcome to Restaurant Reviewer</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div v-if="loading" class="col text-center">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+      </div>
+      <div v-else class="col">
+        <Restaurant v-for="r in restaurants" :key="r.id" :restaurant="r" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { computed, onMounted, ref } from '@vue/runtime-core'
+import Pop from '../utils/Notifier'
+import { restaurantsService } from '../services/RestaurantsService'
+import { AppState } from '../AppState'
+
 export default {
-  name: 'Home'
+  setup() {
+    const loading = ref(true)
+    onMounted(async() => {
+      try {
+        await restaurantsService.getAll()
+        loading.value = false
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
+    return {
+      loading,
+      restaurants: computed(() => AppState.restaurants)
+    }
+  }
 }
 </script>
 
