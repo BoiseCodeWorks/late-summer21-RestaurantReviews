@@ -94,7 +94,7 @@ export default {
       async submitReview() {
         try {
           await reviewsService.create(state.newReview)
-          state.newReview = { restaurantId: props.restaurant.id }
+          state.newReview = { restaurantId: props.restaurant.id, published: false }
           $('#review-modal').modal('hide')
         } catch (error) {
           Pop.toast(error, 'error')
